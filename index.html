@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FrekiValentines</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ambient-hearts" id="ambientHearts" aria-hidden="true"></div>
+  <header class="floating-header" aria-label="Creator credit">
+    <div class="header-avatar" aria-hidden="true"></div>
+    <p>Made by Freki Josh with love</p>
+  </header>
+
+  <main class="scene" aria-label="Valentine envelope scene">
+    <div class="burst-layer" id="burstLayer" aria-hidden="true"></div>
+
+    <div class="envelope-wrap" id="envelopeWrap" role="button" tabindex="0" aria-label="Open Valentine envelope">
+      <div class="envelope" id="envelope">
+        <div class="back">
+          <article class="letter" aria-live="polite">
+            <p>
+              A letter for you,<br>
+              tap to open my heart.
+            </p>
+          </article>
+        </div>
+        <div class="front"></div>
+        <div class="flap">
+          <div class="seal"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="reset-btn" id="resetBtn" type="button">Replay</button>
+    </div>
+  </main>
+
+  <section class="letter-overlay" id="letterOverlay" aria-hidden="true">
+    <article class="letter-sheet" role="dialog" aria-modal="true" aria-labelledby="letterTitle">
+      <h1 id="letterTitle">Hi lab,</h1>
+      <p>
+      I was okay about my current life, no one who I can tell my problems, updates and chikas.
+      </p>
+      <p>
+      But I didn't realize that I was lonely until I met you. You are the one who always listen to me, give me advice and support me. I am so grateful to have you in my life. I hope we can be together forever and share all the good and bad moments together. I love you so much.
+      </p>
+      <p>
+      I know that we have been through a lot of ups and downs, but I am willing to face all the challenges with you. I want to be your partner, your friend, your lover and your everything. I want to make you happy and be there for you whenever you need me. You are the most important person in my life and I will always cherish you.  
+      </p>
+      <p>
+      I hope this letter can express my feelings and let you know how much I love you. You are the best thing that ever happened to me and I am so lucky to have you. I will always love you and be there for you no matter what. Thank you for being in my life and making it so wonderful. I love you more than words can say.
+      </p>
+      <p class="letter-signoff">
+        Forever yours,<br>
+        <span>With all my love</span>
+      </p>
+      <button class="close-letter-btn" id="closeLetterBtn" type="button">Close Letter</button>
+    </article>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
