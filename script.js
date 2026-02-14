@@ -5,6 +5,9 @@ const resetBtn = document.getElementById('resetBtn');
 const letterOverlay = document.getElementById('letterOverlay');
 const closeLetterBtn = document.getElementById('closeLetterBtn');
 const ambientHearts = document.getElementById('ambientHearts');
+const floatingProfile = document.getElementById('floating-profile');
+const profileModal = document.getElementById('profileModal');
+const closeProfileBtn = document.getElementById('closeProfileBtn');
 
 const HEART_COUNT = 42;
 const SPARKLE_COUNT = 30;
@@ -203,6 +206,18 @@ function closeLetterExperience() {
   clearParticles();
 }
 
+function openProfileModal() {
+  profileModal.classList.add('show');
+  profileModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('profile-modal-visible');
+}
+
+function closeProfileModal() {
+  profileModal.classList.remove('show');
+  profileModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('profile-modal-visible');
+}
+
 envelopeWrap.addEventListener('click', openEnvelope);
 envelopeWrap.addEventListener('keydown', (event) => {
   if (event.key === 'Enter' || event.key === ' ') {
@@ -216,6 +231,24 @@ closeLetterBtn.addEventListener('click', closeLetterExperience);
 letterOverlay.addEventListener('click', (event) => {
   if (event.target === letterOverlay) {
     closeLetterExperience();
+  }
+});
+floatingProfile.addEventListener('click', openProfileModal);
+floatingProfile.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    openProfileModal();
+  }
+});
+closeProfileBtn.addEventListener('click', closeProfileModal);
+profileModal.addEventListener('click', (event) => {
+  if (event.target === profileModal) {
+    closeProfileModal();
+  }
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && profileModal.classList.contains('show')) {
+    closeProfileModal();
   }
 });
 
