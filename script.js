@@ -253,3 +253,154 @@ document.addEventListener('keydown', (event) => {
 });
 
 startAmbientHearts();
+
+// -- Greeting letters: randomly choose one on each page load ----------------
+const GREETING_LETTERS = [
+  {
+    title: 'Hey You,',
+    paragraphs: [
+      'Hi. Na-miss lang kita a little, so I left this small note to make you smile kahit saglit.',
+      'I really appreciate the time you give, even the simple chats. Ang laki ng effect nun sa day ko.',
+      'If you ever need company, nandito lang ako. Coffee, walk, or quiet tambay. I’m good.'
+    ],
+    signoff: ['Always,', 'Freki (Josh)']
+  },
+  {
+    title: 'Hello :)',
+    paragraphs: [
+      'Kamusta ka? I kinda miss our random kwentos, pati yung nonsense talks that somehow make everything lighter.',
+      'Your messages, updates, even memes. Maliit man, pero they mean a lot to me.',
+      'Sana we can hang out soon. Kahit simple lang, basta magkasama.'
+    ],
+    signoff: ['Ingat palagi,', 'Freki (Josh)']
+  },
+  {
+    title: 'Smile muna',
+    paragraphs: [
+      'Quick reminder: na-appreciate kita. Baka hindi mo napapansin, pero I do.',
+      'Every small effort, every reply, every time you remember me. Thank you talaga.',
+      'No rush. When you’re ready, we’ll find time to chill.'
+    ],
+    signoff: ['Warmly,', 'Freki (Josh)']
+  },
+  {
+    title: 'Kamusta?',
+    paragraphs: [
+      'If busy ka, okay lang. But if you have a little time, message me. Gusto ko lang malaman how you are.',
+      'Thanks for the simple gestures. You make normal days feel better, pramis.',
+      'I miss the jokes, the stories, and even the plans na hanggang drawing board pa.'
+    ],
+    signoff: ['Here lang,', 'Freki (Josh)']
+  },
+  {
+    title: 'Hi Friend,',
+    paragraphs: [
+      'Reminder lang: you matter. And yes, kasama ako sa nagca-care.',
+      'I hope you get rest and find small things that make you happy today.',
+      'Kapag ready ka, let’s go out. Food, talk, tambay. No pressure at all.'
+    ],
+    signoff: ['See you soon,', 'Freki (Josh)']
+  },
+
+  // NEW ONES -------------------------------------------------------------
+
+  {
+    title: 'Uy Ikaw,',
+    paragraphs: [
+      'Just passing by your day to say hi. Sana okay ka right now.',
+      'If things feel heavy, pahinga ka muna. You do not have to carry everything at once.',
+      'Message me anytime. Kahit random thought lang, go.'
+    ],
+    signoff: ['Nandito lang,', 'Freki (Josh)']
+  },
+  {
+    title: 'Hi :)',
+    paragraphs: [
+      'I hope something good happens to you today. Kahit maliit lang, okay na.',
+      'Thank you for being someone I can talk to. That means more than you think.',
+      'Libre mo ako ng time mo minsan ha. Kahit saglit lang.'
+    ],
+    signoff: ['Always rooting for you,', 'Freki (Josh)']
+  },
+  {
+    title: 'Quick hello',
+    paragraphs: [
+      'Wala lang. I just wanted you to know someone is thinking about you.',
+      'Life gets busy, minsan magulo. But you are doing better than you think.',
+      'If napagod ka, rest. I will still be here.'
+    ],
+    signoff: ['Take it easy,', 'Freki (Josh)']
+  },
+  {
+    title: 'Hoy :)',
+    paragraphs: [
+      'Drink water, breathe, and smile a little for me.',
+      'Salamat sa presence mo. Kahit tahimik lang minsan, it matters.',
+      'Balang araw, sabay tayo ulit magkwento nang walang iniisip na oras.'
+    ],
+    signoff: ['Okay?', 'Freki (Josh)']
+  },
+  {
+    title: 'For you,',
+    paragraphs: [
+      'Not sure if you need this, but I am proud of you.',
+      'You survive days people do not even know were hard for you. Astig ka.',
+      'And if you ever doubt yourself, kausapin mo lang ako.'
+    ],
+    signoff: ['Proud of you palagi,', 'Freki (Josh)']
+  }
+];
+
+function escapeHTML(str) {
+  return String(str).replace(/[&<>"']/g, (s) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[s]));
+}
+
+function renderLetter(letter) {
+  const titleEl = document.getElementById('letterTitle');
+  const contentEl = document.getElementById('letterContent');
+  if (!titleEl || !contentEl) return;
+
+  titleEl.textContent = letter.title || '';
+  const html = (letter.paragraphs || []).map(p => `<p>${escapeHTML(p)}</p>`).join('') +
+    `<p class="letter-signoff">${escapeHTML(letter.signoff[0] || '')}<br><span>${escapeHTML(letter.signoff[1] || '')}</span></p>`;
+  contentEl.innerHTML = html;
+}
+
+function pickRandomLetter() {
+  const idx = Math.floor(Math.random() * GREETING_LETTERS.length);
+  renderLetter(GREETING_LETTERS[idx]);
+}
+
+// Pick a random greeting on load so refresh shows another variant.
+window.addEventListener('load', pickRandomLetter);
+
+
+// Ensure `.floating-header2` sits exactly 5px below the main floating header.
+function adjustFloatingHeaderGap() {
+  const mainHeader = document.getElementById('floating-profile');
+  const dateHeader = document.querySelector('.floating-header2');
+  if (!mainHeader || !dateHeader) return;
+
+  const rect = mainHeader.getBoundingClientRect();
+  // rect.bottom is viewport pixels from top; for fixed positioning we can use that directly.
+  const desiredTop = Math.round(rect.bottom + 5);
+  dateHeader.style.top = `${desiredTop}px`;
+}
+
+// Run on load and on resize/orientation changes.
+window.addEventListener('load', adjustFloatingHeaderGap);
+window.addEventListener('resize', adjustFloatingHeaderGap);
+window.addEventListener('orientationchange', adjustFloatingHeaderGap);
+
+// Observe header size changes (handles font loading, avatar image, or dynamic content).
+const observedHeader = document.getElementById('floating-profile');
+if (observedHeader && window.ResizeObserver) {
+  const ro = new ResizeObserver(adjustFloatingHeaderGap);
+  ro.observe(observedHeader);
+}
