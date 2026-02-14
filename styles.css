@@ -1804,3 +1804,235 @@ body.profile-modal-visible .ambient-hearts {
     font-size: 0.9rem;
   }
 }
+
+/* Error Modal */
+.error-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.error-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.error-modal[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.error-card {
+  background: white;
+  border-radius: 1.5rem;
+  max-width: 500px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: errorSlideIn 0.4s ease-out;
+  text-align: center;
+}
+
+@keyframes errorSlideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.error-icon {
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+
+.wondering-emoji {
+  font-size: 4rem;
+  display: block;
+  animation: sway 3s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+.floating-question {
+  position: absolute;
+  right: -10px;
+  top: -5px;
+  font-size: 2.5rem;
+  color: var(--heart);
+  font-weight: bold;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.error-card h1 {
+  color: var(--ink);
+  font-size: 1.8rem;
+  margin: 0 0 1rem 0;
+  line-height: 1.3;
+}
+
+.error-message {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+  opacity: 0.85;
+}
+
+.error-suggestions {
+  background: #ffe2eb;
+  border-left: 4px solid var(--heart);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  text-align: left;
+}
+
+.error-suggestions p {
+  margin: 0 0 0.75rem 0;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.error-suggestions ul {
+  margin: 0;
+  padding: 0 0 0 1.5rem;
+  list-style: disc;
+}
+
+.error-suggestions li {
+  color: var(--ink);
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.error-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.error-btn-primary {
+  background: linear-gradient(135deg, var(--heart) 0%, #ff7ba3 100%);
+  color: white;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(230, 60, 112, 0.3);
+}
+
+.error-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(230, 60, 112, 0.4);
+}
+
+.error-btn-secondary {
+  background: white;
+  color: var(--ink);
+  border: 2px solid var(--heart);
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.error-btn-secondary:hover {
+  background: #ffe2eb;
+}
+
+/* Mobile Error Modal */
+@media (max-width: 520px) {
+  .error-card {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .error-card h1 {
+    font-size: 1.5rem;
+  }
+
+  .wondering-emoji {
+    font-size: 3rem;
+  }
+
+  .floating-question {
+    font-size: 2rem;
+  }
+
+  .error-message {
+    font-size: 0.95rem;
+  }
+
+  .error-actions {
+    gap: 0.5rem;
+  }
+
+  .error-btn-primary,
+  .error-btn-secondary {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Error Page (unknown.html) */
+.error-page-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: linear-gradient(145deg, var(--bg-a), var(--bg-b) 42%, var(--bg-c));
+  min-height: 100vh;
+}
+
+.error-page-content {
+  background: white;
+  border-radius: 1.5rem;
+  max-width: 500px;
+  width: 100%;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: errorSlideIn 0.4s ease-out;
+  text-align: center;
+}

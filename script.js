@@ -489,6 +489,10 @@ async function loadAndDisplayLetter() {
       hideReplayButtonIfCustomLetter();
       showSenderInfo(customLetterData.sender_name);
       return;
+    } else {
+      // Letter not found - redirect to error page
+      window.location.href = '/unknown.html';
+      return;
     }
   }
   
@@ -497,8 +501,21 @@ async function loadAndDisplayLetter() {
   pickRandomLetter();
 }
 
+// Check if we should automatically open the letter editor
+function checkAndOpenLetterEditor() {
+  if (sessionStorage.getItem('openLetterEditor') === 'true') {
+    sessionStorage.removeItem('openLetterEditor');
+    setTimeout(() => {
+      openLetterEditor();
+    }, 500);
+  }
+}
+
 // Pick a random greeting on load, or load custom letter if URL has ?letter=
-window.addEventListener('load', loadAndDisplayLetter);
+window.addEventListener('load', () => {
+  loadAndDisplayLetter();
+  checkAndOpenLetterEditor();
+});
 
 
 // Ensure `.floating-header2` sits exactly 5px below the main floating header.
@@ -858,6 +875,9 @@ function initSafetyBanner() {
     privacyLink.addEventListener('click', (e) => {
       e.preventDefault();
       openPrivacyModal();
+      // Close the banner when opening privacy policy
+      safetyBanner.classList.add('hidden');
+      bannerBlurOverlay.classList.remove('active');
       // Track privacy policy view
       gtag('event', 'view_privacy_policy', {
         'event_category': 'engagement',
