@@ -21,6 +21,7 @@ let letterTimer;
 let replayTimer;
 let ambientTimer;
 let isReplaying = false;
+let currentCustomLetter = null; // Store custom letter if loaded from URL
 
 function randomBetween(min, max) {
   return Math.random() * (max - min) + min;
@@ -202,6 +203,14 @@ function resetEnvelope() {
     resetBtn.disabled = false;
     replayTimer = null;
   }, ENVELOPE_CLOSE_DURATION);
+}
+
+// Hide replay button and keep showing custom letter if viewing a shared letter
+function hideReplayButtonIfCustomLetter() {
+  const letterId = getUrlParameter('letter');
+  if (letterId && resetBtn) {
+    resetBtn.style.display = 'none';
+  }
 }
 
 function closeLetterExperience() {
@@ -393,8 +402,82 @@ function pickRandomLetter() {
   renderLetter(GREETING_LETTERS[idx]);
 }
 
-// Pick a random greeting on load so refresh shows another variant.
-window.addEventListener('load', pickRandomLetter);
+// Get URL parameter value
+function getUrlParameter(param) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(param);
+}
+
+// Fetch custom letter from Supabase
+async function fetchCustomLetter(letterId) {
+  if (!supabaseClient) {
+    console.log('Supabase not initialized. Using random greeting instead.');
+    return null;
+  }
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('user_letters')
+      .select('*')
+      .eq('letter_id', letterId)
+      .single();
+
+    if (error) {
+      console.error('Error fetching letter:', error);
+      return null;
+    }
+
+    // Increment view count
+    if (data) {
+      supabaseClient
+        .from('user_letters')
+        .update({ view_count: (data.view_count || 0) + 1 })
+        .eq('letter_id', letterId)
+        .then()
+        .catch(err => console.error('Failed to update view count:', err));
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Failed to fetch custom letter:', err);
+    return null;
+  }
+}
+
+// Format custom letter to match the greeting letter structure
+function formatCustomLetterForDisplay(data) {
+  if (!data) return null;
+  
+  return {
+    title: data.recipient_name ? `For ${data.recipient_name},` : 'A Letter for You,',
+    paragraphs: [
+      data.message || ''
+    ],
+    signoff: [data.sender_name || 'With love,', data.sender_name || 'Unknown']
+  };
+}
+
+// Load and display letter (custom or random)
+async function loadAndDisplayLetter() {
+  const letterId = getUrlParameter('letter');
+  
+  if (letterId) {
+    // Try to load custom letter
+    const customLetterData = await fetchCustomLetter(letterId);
+    if (customLetterData) {
+      currentCustomLetter = formatCustomLetterForDisplay(customLetterData);
+      renderLetter(currentCustomLetter);
+      hideReplayButtonIfCustomLetter();
+      return;
+    }
+  }
+  
+  // Fall back to random greeting
+  pickRandomLetter();
+}
+
+// Pick a random greeting on load, or load custom letter if URL has ?letter=
+window.addEventListener('load', loadAndDisplayLetter);
 
 
 // Ensure `.floating-header2` sits exactly 5px below the main floating header.
