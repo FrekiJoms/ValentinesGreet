@@ -1468,3 +1468,339 @@ body.profile-modal-visible .ambient-hearts {
   transform: translateX(-50%) translateY(0);
   pointer-events: auto;
 }
+
+/* Safety & Privacy Banner */
+.safety-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, rgba(230, 60, 112, 0.98) 0%, rgba(255, 123, 163, 0.98) 100%);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(230, 60, 112, 0.3);
+  animation: slideDown 0.4s ease-out;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.safety-banner.hidden {
+  display: none;
+}
+
+/* Background blur overlay */
+.banner-blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  z-index: 999;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.banner-blur-overlay.active {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: auto;
+}
+
+.banner-blur-overlay.hidden {
+  display: none;
+}
+
+.banner-content {
+  max-width: 800px;
+  margin: 0 auto;
+  color: white;
+}
+
+.banner-warning {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+}
+
+.banner-warning h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.banner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.banner-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.banner-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.banner-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.banner-message {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.banner-message ul {
+  margin: 0.5rem 0 0 1.5rem;
+  padding: 0;
+}
+
+.banner-message li {
+  list-style: disc;
+  margin: 0.25rem 0;
+}
+
+.banner-privacy {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.banner-privacy p {
+  margin: 0;
+}
+
+.privacy-link {
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.privacy-link:hover {
+  opacity: 0.8;
+}
+
+.banner-footer {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  accent-color: white;
+}
+
+/* Privacy Modal */
+.privacy-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.privacy-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.privacy-modal[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.privacy-card {
+  background: white;
+  border-radius: 1rem;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.privacy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 2px solid #ffe2eb;
+  background: linear-gradient(135deg, #fff8fb 0%, #ffe2eb 100%);
+}
+
+.privacy-header h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.5rem;
+}
+
+.close-privacy-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--ink);
+  transition: opacity 0.2s ease;
+}
+
+.close-privacy-btn:hover {
+  opacity: 0.6;
+}
+
+.privacy-content {
+  padding: 1.5rem;
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.privacy-content h3 {
+  color: var(--heart);
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.privacy-content h3:first-child {
+  margin-top: 0;
+}
+
+.privacy-content ul {
+  margin: 0.5rem 0 0 1.5rem;
+  padding: 0;
+}
+
+.privacy-content li {
+  list-style: disc;
+  margin: 0.25rem 0;
+}
+
+.privacy-content a {
+  color: var(--heart);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.privacy-content a:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
+/* Mobile Privacy Modal */
+@media (max-width: 520px) {
+  .safety-banner {
+    padding: 1rem;
+  }
+
+  .banner-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .banner-message {
+    font-size: 0.85rem;
+  }
+
+  .banner-privacy {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+
+  .privacy-card {
+    max-height: 90vh;
+    border-radius: 0.75rem;
+  }
+
+  .privacy-header {
+    padding: 1rem;
+  }
+
+  .privacy-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .privacy-content {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}

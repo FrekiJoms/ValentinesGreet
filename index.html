@@ -7,7 +7,7 @@
   <link rel="icon" href="icon.png" type="image/png"/>
   
   <!-- Open Graph Meta Tags for Social Sharing -->
-  <meta property="og:title" content="I sent you a Valentine's Card!" />
+  <meta property="og:title" content="I sent you a Valentine's Card! This site is verifed and is 100% safe." />
   <meta property="og:description" content="I opened my heart for you. Tap to see what's inside... ❤️ (100% safe - not a phishing site)" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://frekivalentine.edgeone.app" />
@@ -17,7 +17,7 @@
   
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="I sent you a Valentine's Card!" />
+  <meta name="twitter:title" content="I sent you a Valentine's Card! This site is verifed and is 100% safe." />
   <meta name="twitter:description" content="I opened my heart for you. Tap to see what's inside... ❤️ (100% safe - not a phishing site)" />
   <meta name="twitter:image" content="https://frekivalentine.edgeone.app/icon.png" />
   <meta name="twitter:site" content="@freki.josh" />
@@ -40,6 +40,39 @@
   </script>
 </head>
 <body>
+  <!-- Safety & Privacy Notice Banner -->
+  <div class="safety-banner" id="safetyBanner" role="dialog" aria-labelledby="bannerTitle">
+    <div class="banner-content">
+      <div class="banner-warning">
+        <h1>⚠️ BE ADVISED:</h1>
+      </div>
+      <div class="banner-header">
+        <h2 id="bannerTitle">This Site is Safe & Secure</h2>
+        <button class="banner-close" id="bannerCloseBtn" type="button" aria-label="Close banner">✕</button>
+      </div>
+      <p class="banner-message">
+        This is a <strong>100% legitimate Valentine's card website</strong>. We do not:
+        <ul>
+          <li>Harvest or sell personal data</li>
+          <li>Contain malware, viruses, or phishing attempts</li>
+          <li>Track you across the web without consent</li>
+        </ul>
+      </p>
+      <div class="banner-privacy">
+        <p><strong>Privacy & Analytics:</strong> We use Google Analytics to understand how visitors use our site. No personal data is shared. <a href="#privacyModal" class="privacy-link" id="privacyLink">Read our Privacy Policy</a></p>
+      </div>
+      <div class="banner-footer">
+        <label class="checkbox-label">
+          <input type="checkbox" id="dontShowAgain" />
+          <span>Don't show this again</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background blur overlay -->
+  <div class="banner-blur-overlay" id="bannerBlurOverlay"></div>
+
   <div class="ambient-hearts" id="ambientHearts" aria-hidden="true"></div>
   <header class="floating-header" aria-label="Creator credit" id="floating-profile" role="button" tabindex="0">
     <div class="header-avatar" aria-hidden="true"></div>
@@ -207,6 +240,50 @@
 
         <div id="errorMessage" class="error-message" style="display: none;"></div>
       </form>
+    </article>
+  </section>
+
+  <!-- Privacy Policy Modal -->
+  <section class="privacy-modal" id="privacyModal" aria-hidden="true">
+    <article class="privacy-card" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+      <div class="privacy-header">
+        <h2 id="privacyTitle">Privacy Policy</h2>
+        <button class="close-privacy-btn" id="closePrivacyBtn" type="button" aria-label="Close privacy policy">✕</button>
+      </div>
+      <div class="privacy-content">
+        <h3>Data Collection</h3>
+        <p>We collect minimal data:</p>
+        <ul>
+          <li><strong>Letters:</strong> Your custom letters are stored in our database and associated with a unique ID for sharing.</li>
+          <li><strong>Analytics:</strong> Google Analytics collects device type, browser, country-level location, and interaction data.</li>
+          <li><strong>No personal info:</strong> We don't request or store email, phone, or passwords.</li>
+        </ul>
+
+        <h3>Data Usage</h3>
+        <ul>
+          <li>Your letters are displayed when someone visits the unique share link.</li>
+          <li>Analytics help us improve the site experience.</li>
+          <li>Data is never sold or shared with third parties (except Google Analytics).</li>
+        </ul>
+
+        <h3>Data Security</h3>
+        <ul>
+          <li>All data is encrypted in transit (HTTPS) and at rest.</li>
+          <li>Supabase provides automatic backups and security monitoring.</li>
+          <li>Row-Level Security policies prevent unauthorized access.</li>
+        </ul>
+
+        <h3>Your Rights</h3>
+        <ul>
+          <li>You can delete your letter by contacting us.</li>
+          <li>You can opt-out of analytics by adjusting browser settings.</li>
+          <li>GDPR/CCPA compliant data handling.</li>
+        </ul>
+
+        <h3>Contact</h3>
+        <p>Questions about privacy? Email: <a href="mailto:baktotph@gmail.com">baktotph@gmail.com</a></p>
+      </div>
+      <button class="close-privacy-btn" id="closePrivacyFooterBtn" type="button">Close</button>
     </article>
   </section>
 

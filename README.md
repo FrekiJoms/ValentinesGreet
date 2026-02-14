@@ -1,335 +1,294 @@
-# FrekiValentine Card 💌
+# FrekiValentine Card - Interactive Valentine's Day Greeting
 
-A beautiful, interactive Valentine's Day card that you can share with anyone. Send love with a personalized digital greeting featuring a romantic envelope animation, heartfelt messages, and social sharing capabilities.
+A beautiful, interactive Valentine's Day card that you can share with anyone. Send heartfelt messages with a personalized digital greeting featuring a romantic envelope animation, thoughtful messages, and easy social sharing.
 
-**Live:** https://frekivalentine.edgeone.app
-
----
-
-## 🚀 Quick Start
-
-### Just Want to Share?
-1. Copy the URL: `https://frekivalentine.edgeone.app`
-2. Send it to someone
-3. Done! They'll see a beautiful card
-
-### Want Custom Letters?
-1. See [SUPABASE_SETUP.md](SUPABASE_SETUP.md) (~5 minutes)
-2. Add credentials to `script.js`
-3. Users can click "Create Your Own Letter" button
+**Live Application:** https://frekivalentine.edgeone.app
 
 ---
 
-## ✨ Features
-
-### Core Experience
-- **Interactive Envelope** - Click to open a beautiful animated envelope and reveal a heartfelt message
-- **Random Greetings** - Each page load shows a different casual greeting in Bisaya and Tagalog
-- **Hero Section** - Eye-catching "Happy Hearts Day!" headline with animated decorative hearts
-- **Ambient Hearts** - Floating heart particles throughout the page for a romantic atmosphere
-- **Particle Effects** - Burst of hearts and sparkles when opening the envelope
-- **Smooth Animations** - Polished transitions and micro-interactions throughout
-
-### Social Sharing & Community
-- **Social Sharing** - Easy share button to send the card URL to friends via social media, email, SMS, or copy to clipboard
-- **Creator Profile** - Click to view creator socials (GitHub, Instagram, Discord, Feedback)
-- **Letter Creator** - Users can create their own custom love letters and get unique shareable links
-- **Unified Sharing** - All letters (default or custom) share the same message: "I sent you a Valentine's Card!"
-
-### Analytics & Tracking
-- **Google Analytics Integration** - Track user engagement and letter creation
-- **View Counting** - Automatic tracking of custom letter views
-- **Event Tracking** - Monitor envelope opens, shares, and social clicks
-
-### Technical
-- **Mobile Responsive** - Beautiful on all devices with optimized layouts
-- **Supabase Backend** - Secure database for custom letters
-- **Cloudflare Workers** - Server-side meta tag injection for accurate social previews
-- **No Login Required** - Fully anonymous letter creation and sharing
-
----
-
-## 🎯 How to Use
+## Quick Start
 
 ### Sharing the Default Card
 
-1. **Share the URL** - Send `https://frekivalentine.edgeone.app` to anyone
-2. **They Open It** - When recipients open the link, they see a beautiful Valentine's card
-3. **They Click the Envelope** - Tapping the envelope reveals a personalized message
-4. **They Can Share** - Recipients can share the card with others using the share button in the letter
-5. **You Get Analytics** - Track how many people opened it and engaged with your card
+1. Copy the URL: `https://frekivalentine.edgeone.app`
+2. Send it to someone special
+3. They'll see a beautiful, interactive Valentine's card
 
-### Creating a Custom Letter
+### Creating Custom Letters
 
-1. **Click "Create Your Own Letter"** - Button appears below the card
-2. **Fill Out the Form:**
+To enable custom letter creation:
+
+1. Follow the setup guide in [SUPABASE_SETUP.md](SUPABASE_SETUP.md) (approximately 5 minutes)
+2. Add your credentials to `script.js`
+3. Users can click "Create Your Own Letter" to personalize their greeting
+
+---
+
+## Features
+
+### Interactive Experience
+
+- **Animated Envelope** - Opening the envelope reveals personalized messages with smooth animations
+- **Random Greetings** - Different messages appear on each visit, including Philippines-inspired text
+- **Hero Section** - Eye-catching landing area with animated decorative elements
+- **Ambient Effects** - Floating heart particles create a romantic atmosphere
+- **Particle Animation** - Hearts and sparkles burst when the envelope opens
+
+### Sharing & Community
+
+- **Social Sharing** - Share via social media, email, SMS, or copy the link
+- **Creator Profile** - Display your social links (GitHub, Instagram, Discord)
+- **Custom Letter Creator** - Users can write personalized love letters with unique share links
+- **Unified Messaging** - All shared cards display the same message: "I sent you a Valentine's Card"
+
+### Analytics & Performance
+
+- **Google Analytics Integration** - Track user engagement and interaction patterns
+- **View Counting** - Monitor how many people viewed custom letters
+- **Event Tracking** - Track opens, shares, and user actions
+- **Safety Banner** - Legitimate site notice with privacy policy
+
+### Technical Details
+
+- **Mobile Optimized** - Responsive design for all device sizes
+- **Supabase Backend** - Secure database for custom letters with Row Level Security
+- **No Authentication Required** - Anonymous letter creation and sharing
+- **Custom Scrollbar** - Pink-themed scrollbar matching the design
+- **Privacy Focused** - Data handling complies with GDPR/CCPA standards
+
+---
+
+## How to Use
+
+### Viewing the Default Card
+
+1. Share the URL with someone: `https://frekivalentine.edgeone.app`
+2. Recipients open the link and see your Valentine's card
+3. They click the envelope to reveal the message
+4. They can use the share button to pass it along
+5. You'll see analytics data about engagement
+
+### Creating Your Own Custom Letter
+
+1. Click "Create Your Own Letter" button on the site
+2. Fill in the form with:
    - Your name (sender)
    - Recipient's name
    - Letter title
    - Your message (up to 2,000 characters)
-3. **Click "Create & Get Link"**
-4. **Copy and Share** - Get a unique URL like `frekivalentine.edgeone.app?letter=letter_xxxxx`
-5. **Recipients See Your Name** - Social sharing shows "Your Name sent you a Valentine's Card!"
+3. Click "Create & Get Link"
+4. Copy the unique link and share it
+5. Your name will appear when recipients view the card
 
-### Viewing Shared Custom Letters
+### Letter Behavior
 
-1. Recipients open your sharing link
-2. The card automatically loads YOUR message (not random greetings)
-3. Your name appears in the letter signature
-4. View count increases automatically
-5. No replay button—keeps showing your custom letter
+- Custom letters display only your message (not random greetings)
+- Your name appears to identify you as the sender
+- Recipients see view counts automatically increment
+- The card remembers which letter to show based on the URL
 
 ---
 
-## 📁 File Structure
+## File Structure
 
 ```
 ValentinesGreet/
-├── index.html                    # Main HTML with meta tags and modals
-├── styles.css                    # All styling and animations
-├── script.js                     # JavaScript logic, events, and Supabase integration
+├── index.html                    # HTML structure, modals, meta tags
+├── styles.css                    # Styling, animations, responsive design
+├── script.js                     # Functionality, events, database integration
 ├── icon.png                      # Preview image for social sharing
-├── README.md                     # This file
-└── SUPABASE_SETUP.md             # Detailed Supabase configuration guide
+├── README.md                     # This documentation
+└── SUPABASE_SETUP.md             # Database setup guide
 ```
 
 ---
 
-## 🛠️ Customization
+## Customization
 
-### Change the Message
+### Modify Messages
 
-Edit the `GREETING_LETTERS` array in `script.js` (around line 270) to add your own messages:
+Edit the `GREETING_LETTERS` array in `script.js` (around line 300):
 
 ```javascript
 {
-  title: 'Your Title Here',
+  title: 'Your Message Title',
   paragraphs: [
-    'Your first paragraph',
-    'Your second paragraph',
-    'Your third paragraph'
+    'First paragraph of your message',
+    'Second paragraph',
+    'Final thoughts'
   ],
-  signoff: ['Sign off line 1,', 'Sign off line 2']
+  signoff: ['Warm regards,', 'Your Name']
 }
 ```
 
-### Change Creator Name
+### Update Creator Information
 
-In `index.html`, update:
-- Line 14: `<p>Made by @FrekiJosh with love</p>` - Change to your name
-- Meta tags for social sharing (lines 10-23)
+In `index.html`:
+- Line 45: Update the "Made by" text with your name
+- Lines 10-20: Update social sharing metadata
+- Lines 133-141: Add your actual social media links
 
-### Update Social Links
+### Customize Theme Colors
 
-In `index.html`, update the social links section (lines 104-119):
-- GitHub
-- Instagram
-- Discord
-- Feedback email
-
-### Customize Colors
-
-In `styles.css`, update the `:root` CSS variables (lines 1-10):
+In `styles.css`, edit the root variables (lines 1-10):
 
 ```css
 :root {
-  --heart: #e74a7a;        /* Heart color */
+  --heart: #e74a7a;        /* Primary accent color */
   --ink: #8f3d5a;          /* Text color */
-  /* ... other colors */
+  --bg-a: #ffe2eb;         /* Background variants */
 }
 ```
 
-### Change Hero Title
+### Change Hero Section Title
 
-To change the "Happy Hearts Day!" text, edit `index.html` lines 33-37 in the `.hero-title` section.
+Modify the "Happy Hearts Day!" text in `index.html` (lines 58-60) in the hero section.
 
 ---
 
-## �‍💻 Development
+## Development & Deployment
 
-### Clone & Run Locally
+### Running Locally
 
 ```bash
-# Clone the repository
-git clone https://github.com/FrekiJoms/ValentinesGreet.git
-cd ValentinesGreet
-
-# Start a local server
-# Option 1 (Python):
+# Option 1: Python
 python -m http.server 8000
 
-# Option 2 (Node):
+# Option 2: Node.js
 npx http-server
 
-# Option 3 (VS Code):
-# Right-click index.html → "Open with Live Server"
+# Option 3: VS Code
+# Right-click index.html > "Open with Live Server"
 
-# Open: http://localhost:8000
+# Then visit: http://localhost:8000
 ```
 
 ### Code Overview
 
-**index.html** (~209 lines)
+**index.html** (217 lines)
 - Semantic HTML structure
-- Meta tags for social sharing
-- Modal dialogs (profile, letter, editor)
-- Accessibility attributes (a11y best practices)
+- Meta tags for social preview optimization
+- Modal dialogs for forms and information
+- ARIA attributes for accessibility
 
-**styles.css** (~1362 lines)
-- CSS variables for theming
+**styles.css** (1,600+ lines)
+- CSS custom properties for theming
 - Flexbox and Grid layouts
-- Keyframe animations
-- Responsive design with mobile-first approach
+- Keyframe animations and transitions
+- Mobile-first responsive design
+- Custom scrollbar styling
 
-**script.js** (~810 lines)
-- DOM manipulation and event listeners
-- Particle effects and animations
-- Supabase integration
-- Google Analytics tracking
+**script.js** (920+ lines)
+- DOM event handling
+- Particle effect generation
+- Supabase database integration
+- Google Analytics event tracking
+- Local storage for user preferences
 
-### Making Changes
+### Testing Analytics
 
-**Add Greeting Letter:**
-1. Edit `GREETING_LETTERS` array in `script.js` (line ~300)
-2. Follow format: `{ title, paragraphs: [], signoff: [] }`
-3. Test by refreshing
+1. Visit analytics.google.com
+2. Select your property
+3. Look for events under Reports > Engagement > Events
+4. Events appear within 1-2 minutes
 
-**Change Theme Colors:**
-1. Edit CSS variables in `styles.css` (lines 1-10)
-2. Example: `--heart: #your-color`
+### Common Modifications
 
-**Test Analytics:**
-- Events appear in 1-2 minutes
-- Check: analytics.google.com > your property
-- Or use: Real-time > Events view
+**Adding a New Message:**
+1. Add new object to `GREETING_LETTERS` in `script.js`
+2. Save and test by refreshing
 
-### Debugging
+**Changing Colors:**
+1. Update CSS variables in `styles.css`
+2. Changes apply globally to all components
 
-Open DevTools (F12):
-- **Elements**: Inspect HTML and styles
-- **Console**: JavaScript errors and logs
-- **Network**: Check API calls to Supabase
-- **Application**: View local storage and cookies
+**Adjusting Analytics:**
+1. Modify gtag() calls in `script.js` to track new events
+2. Create custom events in your GA property
 
 ---
 
-## �📊 Analytics Setup
+## Analytics Events
 
-### View Your Analytics
+The application automatically tracks:
 
-1. Go to [analytics.google.com](https://analytics.google.com)
-2. Select your property (FrekiValentine)
-3. Navigate to **Reports** → **Engagement** → **Events**
-
-### Tracked Events
-
-- **envelope_opened** - How many people opened the envelope and viewed the letter
-- **profile_modal_opened** - How many clicked to view your socials
-- **letter_shared** - How many people used the share button
-- **social_link_clicked** - Which social links got clicks (GitHub, Instagram, Discord)
-- **feedback_clicked** - How many sent you feedback
-- **letter_created** - How many custom letters users created
+- **envelope_opened** - Count of envelope views
+- **profile_modal_opened** - Creator profile clicks
+- **letter_shared** - Social sharing actions
+- **social_link_clicked** - Navigation to external profiles
+- **feedback_clicked** - Feedback email submissions
+- **letter_created** - Custom letter creation count
+- **view_privacy_policy** - Privacy policy views
 
 ### Custom Letter Analytics
 
-Track custom letter performance in Supabase:
+View letter statistics in your Supabase database:
 
 ```sql
--- View all custom letters with stats
-SELECT 
-  sender_name,
-  recipient_name,
-  title,
-  created_at,
-  view_count
+-- All letters with statistics
+SELECT sender_name, recipient_name, title, created_at, view_count
 FROM user_letters
 ORDER BY created_at DESC;
 
--- Most viewed custom letters
-SELECT 
-  sender_name,
-  recipient_name,
-  title,
-  view_count
+-- Most viewed letters
+SELECT sender_name, recipient_name, title, view_count
 FROM user_letters
 ORDER BY view_count DESC
 LIMIT 10;
 ```
 
-In the Supabase dashboard:
-1. Go to **Table Editor**
-2. Click **"user_letters"** table
-3. Sort by `view_count` to see popular letters
+Access this data through the Supabase dashboard Table Editor.
 
 ---
 
-## 📮 Letter Creator Feature
+## Letter Creator Feature
 
-Allow your users to create and share their own custom love letters!
+Enable custom letter creation by following these steps:
 
-### Quick Setup
+### Database Setup
 
-1. **[SUPABASE_SETUP.md](SUPABASE_SETUP.md)** - Create Supabase project and database table
-2. **Add Credentials** to `script.js` (lines 577-578)
-3. **Done!** Users can now create letters
-
-### How It Works
-
-**Frontend:**
-1. User clicks "Create Your Own Letter" button
-2. Modal form opens with 4 fields
-3. Form validates and submits to Supabase
-4. Unique ID generated: `letter_xxxxx`
-5. Shareable URL created: `frekivalentine.edgeone.app?letter=letter_xxxxx`
-
-**Backend (Supabase):**
-- Stores: Sender name, recipient name, title, message, creation date, view count
-- Row Level Security enabled (public read/insert/update)
-- Automatic view count increment on each view
-- Index created for fast letter lookups
+Complete the setup in [SUPABASE_SETUP.md](SUPABASE_SETUP.md):
+1. Create a Supabase project
+2. Run the provided SQL queries
+3. Add your credentials to `script.js`
 
 ### Database Structure
 
-```sql
-CREATE TABLE user_letters (
-  id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  letter_id TEXT UNIQUE NOT NULL,
-  sender_name TEXT NOT NULL,
-  recipient_name TEXT NOT NULL,
-  title TEXT NOT NULL,
-  message TEXT NOT NULL,
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  view_count INT DEFAULT 0
-);
-```
+The system stores:
+- Sender name
+- Recipient name  
+- Letter title
+- Message content
+- Creation timestamp
+- View count
 
-### Form Customization
+All data is encrypted and protected with Row Level Security policies.
 
-Edit the form fields in `index.html` (lines 164-180) to add:
-- Character count display (already included)
-- Additional fields (color, font, etc.)
-- File uploads
-- etc.
+### User Workflow
+
+1. User clicks "Create Your Own Letter"
+2. Completes form with their message
+3. System generates unique letter ID
+4. Share link created automatically
+5. Recipients see sender's name with the custom message
 
 ---
 
-##  Deployment
+## Deployment
 
-### Current Setup
+Your application is currently hosted on Cloudflare Pages:
 
-Your card is deployed on **Cloudflare Pages** at:
 ```
 https://frekivalentine.edgeone.app
 ```
 
-**Cloudflare automatically:**
-- Rebuilds and deploys when you push to GitHub
-- Serves files globally via CDN
-- Provides SSL/HTTPS
-- Includes edge security
+Cloudflare automatically:
+- Deploys on GitHub push
+- Serves globally via CDN
+- Provides SSL/HTTPS security
+- Handles edge security
 
-
-### Deploy to Other Hosting
+### Deploy to Alternative Platforms
 
 **Netlify:**
 ```bash
@@ -344,159 +303,152 @@ vercel --prod
 ```
 
 **GitHub Pages:**
-- Push to `gh-pages` branch or configure in repository settings
+Push to the `gh-pages` branch or configure via repository settings.
 
 ---
 
-## 📝 Social Sharing Meta Tags
+## Social Sharing
 
-All shared links (default or custom letters) show:
+All shared links display:
+- Title: "I sent you a Valentine's Card"
+- Description: "I opened my heart for you. Tap to see what's inside..."
+- Image: Your configured preview image
 
-- **Title:** "I sent you a Valentine's Card!"
-- **Description:** "I opened my heart for you. Tap to see what's inside..."
-- **Image:** `icon.png`
-
-The unified message works perfectly for all sharing scenarios—no customization needed!
-
-To edit the message, modify lines 10-12 in `index.html`.
+To customize these messages, edit the meta tags in `index.html` (lines 10-20).
 
 ---
 
-## 🎨 Design Notes
+## Design System
 
-- **Typography:** Georgia serif for romantic feel, Brush Script MT for handwritten style
-- **Colors:** Pink theme with shades of rose (#e63c70, #ff7ba3)
-- **Animations:** Smooth 300-500ms transitions, floating heart particles
-- **Responsive:** Works on mobile (320px), tablet, and desktop (1920px+)
+**Typography:**
+- Georgia serif font for elegant text
+- Brush Script MT for handwritten elements
+
+**Color Palette:**
+- Primary: Rose/pink tones (#e63c70, #ff7ba3)
+- Accent: Deep burgundy (#873854)
+- Background: Gradient pinks and whites
+
+**Animations:**
+- Smooth 300-500ms transitions
+- Floating particle effects
+- Entrance and exit animations
+
+**Responsive Design:**
+- Mobile optimization (320px and up)
+- Tablet support (768px and up)
+- Desktop layouts (1920px+)
 
 ---
 
-## 📱 Browser Support
+## Browser Compatibility
 
+Tested and working on:
 - Chrome/Chromium (latest)
 - Firefox (latest)
 - Safari (latest)
-- Edge (latest)
+- Microsoft Edge (latest)
 - Mobile browsers (iOS Safari, Chrome Mobile)
 
 ---
 
-## 🔒 Privacy & Data
+## Privacy & Data
 
-### Tracking & Analytics
+### Analytics & Tracking
 
-- **Google Analytics** tracks page views and user interactions (events)
-- **No personal data stored** from tracking
-- Recipients' names/emails are NOT collected
-- To disable: Remove Google Analytics script from `index.html` (lines 29-36)
+- Google Analytics collects aggregated usage data
+- No personally identifiable information is stored by analytics
+- Recipients' names are not transmitted to tracking services
+- To disable tracking: Remove the Google Analytics script from `index.html`
 
-### Custom Letter Data
+### Custom Letter Storage
 
-Letters created via the Letter Creator are stored in Supabase:
-- **Publicly accessible** via unique letter ID
-- **Searchable** only by exact letter ID (privacy through obscurity)
-- **Not indexed** by search engines (no robots.txt block needed)
-- **View count tracked** but not linked to IPs or identities
+Letters created through the Letter Creator:
+- Stored securely in Supabase
+- Accessible only via unique letter ID
+- View counts tracked but not linked to personal data
+- Can be deleted via database SQL commands
 
-### Data Deletion
+### GDPR & CCPA Compliance
 
-To delete a custom letter from Supabase:
-
-```sql
-DELETE FROM user_letters WHERE letter_id = 'letter_xxxxx';
-```
-
-Access this via Supabase dashboard → SQL Editor.
+The application includes:
+- Privacy policy disclosure
+- Data usage transparency
+- User consent mechanisms
+- Data deletion capabilities
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### General Issues
 
-**Letter doesn't open?**
-- Check browser console (F12) for errors
-- Ensure JavaScript is enabled
-- Try refreshing the page
-- Clear cache (Ctrl+Shift+Del)
+**Envelope won't open?**
+- Check JavaScript is enabled
+- Refresh the page and try again
+- Clear browser cache
+- Check browser console for errors (F12)
 
 **Share button not working?**
-- On mobile: Uses native share menu (expected behavior)
-- On desktop: Copies link to clipboard with notification
-- Check browser clipboard permissions
+- Desktop: Should copy link to clipboard
+- Mobile: Uses native share menu
+- Check browser permissions for clipboard
 
-**Images not showing?**
-- Ensure `icon.png` exists in root directory
-- Verify image paths are correct in `index.html`
+**Images not displaying?**
+- Verify `icon.png` exists in project root
+- Check image file paths are correct
 
-**Analytics not tracking?**
-- Check Google Analytics script is in `<head>` (lines 29-36)
-- Verify Measurement ID is correct: `G-TH3QX353B2`
-- Wait a few minutes for data to appear
-- Check browser console for gtag errors
+**Analytics not showing data?**
+- Wait 1-2 minutes for data to appear
+- Verify Google Analytics ID is correct
+- Check browser console for tracking errors
 
 ### Letter Creator Issues
 
-**"Letter creation not available" message?**
-- Supabase credentials not set in `script.js`
-- Add your Supabase URL and key (see [SUPABASE_SETUP.md](SUPABASE_SETUP.md))
+**Letter creation unavailable?**
+- Supabase credentials not configured in `script.js`
+- Complete setup in [SUPABASE_SETUP.md](SUPABASE_SETUP.md)
 
-**"Failed to create letter" error?**
-- Check Supabase project is active
-- Verify RLS policies allow public insert
-- Check browser console for specific error message
-- Ensure message is under 2000 characters
+**Custom letter not loading?**
+- Verify letter ID in URL matches database
+- Check Supabase connection status
+- Clear browser cache and refresh
 
-**Letter created but not showing when shared?**
-- Supabase initialized but API error
-- Check Supabase connection in browser console
-- Verify letter ID is in URL: `?letter=letter_xxxxx`
-
-**Custom letter shows random greeting instead?**
-- Letter ID not found in Supabase
-- Check ID spelling in shared URL
-- Verify Supabase table has the letter
-- Clear browser cache
+**Error creating letter?**
+- Ensure all form fields are filled
+- Check message is under 2000 characters
+- Verify Supabase RLS policies are enabled
+- Check browser console for specific error
 
 ---
 
-## 📄 License
+## License
 
-This project is open source and free to use, customize, and share!
-
----
-
-## 📚 Additional Resources
-
-- **Supabase Docs:** https://supabase.com/docs
-- **Google Analytics:** https://analytics.google.com
-- **GitHub Repository:** https://github.com/FrekiJoms/ValentinesGreet
+This project is open source and available for use, modification, and distribution.
 
 ---
 
-## 💝 Credits
+## Resources
 
-**Created by:** FrekiJosh  
-**GitHub:** https://github.com/FrekiJoms/ValentinesGreet  
-**Instagram:** https://www.instagram.com/freki.josh/  
-**Discord:** https://discord.com/users/1282750121200844851
-
----
-
-## 🎁 Share Your Love
-
-Send this card to someone special and let them know they matter to you!
-
-**Features:**
-- 💌 Beautiful envelope animation
-- 🎨 Romantic design with particle effects
-- 🌍 Share with anyone anywhere
-- ❤️ Create custom love letters
-- 📊 Analytics tracking
-- 🔒 Privacy-focused
-
-Made with ❤️ on Valentine's Day 2026
+- Supabase Documentation: https://supabase.com/docs
+- Google Analytics: https://analytics.google.com
+- Project Repository: https://github.com/FrekiJoms/ValentinesGreet
 
 ---
 
-**Questions?** Open an issue on GitHub or send feedback to baktotph@gmail.com
+## Contact & Support
+
+**Creator:** FrekiJosh
+
+**Connect:**
+- GitHub: https://github.com/FrekiJoms
+- Instagram: https://www.instagram.com/freki.josh/
+- Discord: https://discord.com/users/1282750121200844851
+- Email: baktotph@gmail.com
+
+**Questions or Feedback?**
+Open an issue on GitHub or email directly. All feedback and suggestions for improvement are appreciated.
+
+---
+
+Created with care on Valentine's Day, 2026. Send love to someone special.

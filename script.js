@@ -812,3 +812,119 @@ if (feedbackBtn) {
     }
   });
 }
+
+// SAFETY BANNER & PRIVACY MODAL
+
+// Initialize safety banner on page load
+function initSafetyBanner() {
+  const safetyBanner = document.getElementById('safetyBanner');
+  const bannerBlurOverlay = document.getElementById('bannerBlurOverlay');
+  const bannerCloseBtn = document.getElementById('bannerCloseBtn');
+  const dontShowAgain = document.getElementById('dontShowAgain');
+  
+  // Check if user has already dismissed the banner
+  const bannerDismissed = localStorage.getItem('safetyBannerDismissed');
+  
+  if (bannerDismissed === 'true') {
+    safetyBanner.classList.add('hidden');
+    bannerBlurOverlay.classList.add('hidden');
+  } else {
+    // Show blur overlay when banner is visible
+    bannerBlurOverlay.classList.add('active');
+  }
+  
+  // Close button click
+  bannerCloseBtn.addEventListener('click', () => {
+    safetyBanner.classList.add('hidden');
+    bannerBlurOverlay.classList.remove('active');
+    if (dontShowAgain.checked) {
+      localStorage.setItem('safetyBannerDismissed', 'true');
+      bannerBlurOverlay.classList.add('hidden');
+    }
+  });
+  
+  // Don't show again checkbox
+  dontShowAgain.addEventListener('change', () => {
+    if (dontShowAgain.checked) {
+      localStorage.setItem('safetyBannerDismissed', 'true');
+    } else {
+      localStorage.removeItem('safetyBannerDismissed');
+    }
+  });
+  
+  // Privacy link click
+  const privacyLink = document.getElementById('privacyLink');
+  if (privacyLink) {
+    privacyLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      openPrivacyModal();
+      // Track privacy policy view
+      gtag('event', 'view_privacy_policy', {
+        'event_category': 'engagement',
+        'event_label': 'User accessed privacy policy from banner'
+      });
+    });
+  }
+  
+  // Close banner when clicking outside (on blur overlay)
+  bannerBlurOverlay.addEventListener('click', () => {
+    safetyBanner.classList.add('hidden');
+    bannerBlurOverlay.classList.remove('active');
+    if (dontShowAgain.checked) {
+      localStorage.setItem('safetyBannerDismissed', 'true');
+      bannerBlurOverlay.classList.add('hidden');
+    }
+  });
+}
+
+// Privacy Modal Functions
+function openPrivacyModal() {
+  const privacyModal = document.getElementById('privacyModal');
+  privacyModal.setAttribute('aria-hidden', 'false');
+  privacyModal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePrivacyModal() {
+  const privacyModal = document.getElementById('privacyModal');
+  privacyModal.setAttribute('aria-hidden', 'true');
+  privacyModal.classList.remove('show');
+  document.body.style.overflow = 'auto';
+}
+
+// Setup privacy modal event listeners
+function setupPrivacyModal() {
+  const closePrivacyBtn = document.getElementById('closePrivacyBtn');
+  const closePrivacyFooterBtn = document.getElementById('closePrivacyFooterBtn');
+  const privacyModal = document.getElementById('privacyModal');
+  
+  if (closePrivacyBtn) {
+    closePrivacyBtn.addEventListener('click', closePrivacyModal);
+  }
+  
+  if (closePrivacyFooterBtn) {
+    closePrivacyFooterBtn.addEventListener('click', closePrivacyModal);
+  }
+  
+  // Close modal when clicking outside the card
+  if (privacyModal) {
+    privacyModal.addEventListener('click', (e) => {
+      if (e.target === privacyModal) {
+        closePrivacyModal();
+      }
+    });
+  }
+  
+  // Close modal on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closePrivacyModal();
+    }
+  });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  initSafetyBanner();
+  setupPrivacyModal();
+});

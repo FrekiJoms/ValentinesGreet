@@ -21,7 +21,7 @@ This guide will walk you through setting up Supabase to enable the "Create Your 
 
 1. In your Supabase dashboard, go to **"SQL Editor"** on the left sidebar
 2. Click **"New Query"**
-3. Copy and paste this SQL:
+3. Copy and paste this SQL. Start with the basic table creation:
 
 ```sql
 CREATE TABLE user_letters (
@@ -35,21 +35,6 @@ CREATE TABLE user_letters (
   view_count INT DEFAULT 0
 );
 
--- Enable RLS (Row Level Security)
-ALTER TABLE user_letters ENABLE ROW LEVEL SECURITY;
-
--- Create policy to allow anonymous reads
-CREATE POLICY "Allow public read" ON user_letters
-FOR SELECT USING (true);
-
--- Create policy to allow anonymous inserts
-CREATE POLICY "Allow public insert" ON user_letters
-FOR INSERT WITH CHECK (true);
-
--- Create policy to allow updates to view_count
-CREATE POLICY "Allow public update" ON user_letters
-FOR UPDATE USING (true);
-
 -- Create index for faster queries
 CREATE INDEX idx_letter_id ON user_letters(letter_id);
 CREATE INDEX idx_created_at ON user_letters(created_at DESC);
@@ -57,6 +42,120 @@ CREATE INDEX idx_created_at ON user_letters(created_at DESC);
 
 4. Click **"Run"** button
 5. You should see "Success. No rows returned" message
+
+## Step 2.5: Secure with Row Level Security (RLS)
+
+Now add security policies to protect user data. Run this SQL in a new query:
+
+```sql
+-- 1. ENABLE RLS ON THE LETTERS TABLE
+ALTER TABLE user_letters ENABLE ROW LEVEL SECURITY;
+
+-- 2. ALLOW ANYONE TO READ (SELECT) ANY LETTER BY ID
+-- This allows users to view public letters if they have the letter ID
+CREATE POLICY "Letters are publicly readable by ID"
+  ON user_letters
+  FOR SELECT
+  USING (true);
+
+-- 3. ALLOW ANYONE TO CREATE (INSERT) NEW LETTERS
+-- This allows anonymous users to create new letters
+CREATE POLICY "Anyone can create a letter"
+  ON user_letters
+  FOR INSERT
+  WITH CHECK (true);
+
+-- 4. ALLOW UPDATES BUT PROTECT CONTENT WITH A TRIGGER
+-- This RLS policy allows updates, but a trigger will enforce that only view_count changes
+CREATE POLICY "Allow updates with content protection"
+  ON user_letters
+  FOR UPDATE
+  USING (true)
+  WITH CHECK (true);
+
+-- 5. ADD TRIGGER TO PREVENT MODIFICATION OF LETTER CONTENT
+-- This trigger ensures only view_count can be updated, not sender name, message, etc.
+CREATE OR REPLACE FUNCTION prevent_letter_modification()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Check if any protected fields were modified
+  IF NEW.sender_name != OLD.sender_name
+    OR NEW.recipient_name != OLD.recipient_name
+    OR NEW.title != OLD.title
+    OR NEW.message != OLD.message
+    OR NEW.created_at != OLD.created_at
+  THEN
+    RAISE EXCEPTION 'Cannot modify letter content. Only view_count can be updated.';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER enforce_no_content_modification
+BEFORE UPDATE ON user_letters
+FOR EACH ROW
+EXECUTE FUNCTION prevent_letter_modification();
+
+-- 6. OPTIONAL: Add rate limiting to prevent spam
+CREATE OR REPLACE FUNCTION check_letter_creation_rate()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Prevent spam: max ~100 letters per 24 hours globally
+  IF (SELECT COUNT(*) FROM user_letters 
+      WHERE created_at > NOW() - INTERVAL '24 hours') > 100 THEN
+    RAISE EXCEPTION 'Rate limit exceeded. Too many letters created today. Try again tomorrow.';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER enforce_letter_creation_rate
+BEFORE INSERT ON user_letters
+FOR EACH ROW
+EXECUTE FUNCTION check_letter_creation_rate();
+
+-- 6. OPTIONAL: Add data validation to ensure quality
+CREATE OR REPLACE FUNCTION validate_letter_fields()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Ensure required fields are not empty
+  IF NEW.sender_name IS NULL OR TRIM(NEW.sender_name) = '' THEN
+    RAISE EXCEPTION 'Sender name is required';
+  END IF;
+  IF NEW.recipient_name IS NULL OR TRIM(NEW.recipient_name) = '' THEN
+    RAISE EXCEPTION 'Recipient name is required';
+  END IF;
+  IF NEW.title IS NULL OR TRIM(NEW.title) = '' THEN
+    RAISE EXCEPTION 'Letter title is required';
+  END IF;
+  IF NEW.message IS NULL OR TRIM(NEW.message) = '' THEN
+    RAISE EXCEPTION 'Message is required';
+  END IF;
+  
+  -- Ensure message doesn't exceed 2000 characters
+  IF LENGTH(NEW.message) > 2000 THEN
+    RAISE EXCEPTION 'Message cannot exceed 2000 characters';
+  END IF;
+  
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER validate_letter_before_insert
+BEFORE INSERT ON user_letters
+FOR EACH ROW
+EXECUTE FUNCTION validate_letter_fields();
+```
+
+6. Click **"Run"** button
+
+**Security Summary:**
+- ✅ **SELECT**: Anyone can read any letter (public access)
+- ✅ **INSERT**: Anyone can create letters
+- ✅ **UPDATE**: Only view_count can be updated (prevents tampering with content)
+- ❌ **DELETE**: Disabled (users cannot delete letters)
+- ❌ **SPAM**: Rate-limited (max 100 letters per 24 hours)
+- ❌ **BAD DATA**: Validated server-side (required fields, max length)
 
 ## Step 3: Get Your API Credentials
 
