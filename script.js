@@ -453,7 +453,7 @@ function formatCustomLetterForDisplay(data) {
     paragraphs: [
       data.message || ''
     ],
-    signoff: [data.sender_name || 'With love,', data.sender_name || 'Unknown']
+    signoff: [data.sender_name || 'With love,' || 'Unknown']
   };
 }
 
