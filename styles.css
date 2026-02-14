@@ -28,10 +28,18 @@ body {
   overflow: hidden;
 }
 
+body.letter-visible {
+  overflow: hidden;
+}
+
 body.letter-visible .scene {
   filter: blur(9px) saturate(0.92);
   transform: scale(0.98);
   pointer-events: none;
+}
+
+body.profile-modal-visible {
+  overflow: hidden;
 }
 
 body.profile-modal-visible .scene,
