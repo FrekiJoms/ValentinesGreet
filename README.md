@@ -46,14 +46,17 @@ To enable custom letter creation:
 - **Google Analytics Integration** - Track user engagement and interaction patterns
 - **View Counting** - Monitor how many people viewed custom letters
 - **Event Tracking** - Track opens, shares, and user actions
-- **Safety Banner** - Legitimate site notice with privacy policy
+- **Safety Banner** - Prominent notice confirming legitimacy with privacy disclosure
+- **Privacy Modal** - Full privacy policy accessible from the safety banner
+- **Background Blur** - Dynamic blur effect when banner is active
 
 ### Technical Details
 
 - **Mobile Optimized** - Responsive design for all device sizes
 - **Supabase Backend** - Secure database for custom letters with Row Level Security
 - **No Authentication Required** - Anonymous letter creation and sharing
-- **Custom Scrollbar** - Pink-themed scrollbar matching the design
+- **Custom Scrollbar** - Pink-themed scrollbar with floating heart animation
+- **Error Handling** - Dedicated error page for invalid or deleted letters
 - **Privacy Focused** - Data handling complies with GDPR/CCPA standards
 
 ---
@@ -93,12 +96,13 @@ To enable custom letter creation:
 
 ```
 ValentinesGreet/
-├── index.html                    # HTML structure, modals, meta tags
+├── index.html                    # Main page with envelope, modals, and forms
+├── unknown.html                  # Error page for invalid/deleted letters
 ├── styles.css                    # Styling, animations, responsive design
 ├── script.js                     # Functionality, events, database integration
 ├── icon.png                      # Preview image for social sharing
 ├── README.md                     # This documentation
-└── SUPABASE_SETUP.md             # Database setup guide
+└── SUPABASE_SETUP.md             # Database setup guide with security policies
 ```
 
 ---
@@ -409,10 +413,17 @@ The application includes:
 - Supabase credentials not configured in `script.js`
 - Complete setup in [SUPABASE_SETUP.md](SUPABASE_SETUP.md)
 
+**"This Letter Does Not Exist" error?**
+- You've been taken to the `/unknown.html` error page
+- The letter ID is invalid or the letter has been deleted
+- Try creating your own letter instead using the button on the error page
+- Double-check the shared link hasn't been modified
+
 **Custom letter not loading?**
 - Verify letter ID in URL matches database
 - Check Supabase connection status
 - Clear browser cache and refresh
+- If error persists, letter may have been deleted
 
 **Error creating letter?**
 - Ensure all form fields are filled
