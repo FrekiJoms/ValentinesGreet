@@ -32,8 +32,7 @@ CREATE TABLE user_letters (
   title TEXT NOT NULL,
   message TEXT NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  view_count INT DEFAULT 0,
-  created_at_date DATE GENERATED ALWAYS AS (DATE(created_at)) STORED
+  view_count INT DEFAULT 0
 );
 
 -- Enable RLS (Row Level Security)

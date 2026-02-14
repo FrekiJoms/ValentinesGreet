@@ -574,8 +574,8 @@ if (shareLetterBtn) {
 
 // TODO: Initialize Supabase with your credentials
 // Get these from your Supabase project dashboard
-const SUPABASE_URL = 'YOUR_SUPABASE_URL'; // e.g., https://xxxxx.supabase.co
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // Your anonymous key
+const SUPABASE_URL = 'https://iaseqpmzgxykdkuuehyp.supabase.co'; // e.g., https://xxxxx.supabase.co
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlhc2VxcG16Z3h5a2RrdXVlaHlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEwNzM3NzMsImV4cCI6MjA4NjY0OTc3M30.KLU_ElpB63wQ8rZF-JwzfwL7ZHAnRjuNnJXU5f6NtOA'; // Your anonymous key
 
 let supabaseClient = null;
 
@@ -594,7 +594,7 @@ const closeEditorBtn = document.getElementById('closeEditorBtn');
 const cancelEditorBtn = document.getElementById('cancelEditorBtn');
 const letterForm = document.getElementById('letterForm');
 const charCountEl = document.getElementById('charCount');
-const messageInput = document.getElementById('letterMessage');
+const messageInput = document.getElementById('formLetterMessage');
 const successMessage = document.getElementById('successMessage');
 const errorMessage = document.getElementById('errorMessage');
 
@@ -624,15 +624,17 @@ function closeLetterEditor() {
   successMessage.style.display = 'none';
   errorMessage.style.display = 'none';
   charCountEl.textContent = '0 / 2000 characters';
+  // Reset form visibility after closing
+  document.getElementById('formFields').style.display = 'block';
 }
 
 async function submitLetter(e) {
   e.preventDefault();
 
-  const senderName = document.getElementById('senderName').value.trim();
-  const recipientName = document.getElementById('recipientName').value.trim();
-  const letterTitle = document.getElementById('letterTitle').value.trim();
-  const letterMessage = document.getElementById('letterMessage').value.trim();
+  const senderName = document.getElementById('formSenderName').value.trim();
+  const recipientName = document.getElementById('formRecipientName').value.trim();
+  const letterTitle = document.getElementById('formLetterTitle').value.trim();
+  const letterMessage = document.getElementById('formLetterMessage').value.trim();
 
   if (!senderName || !recipientName || !letterTitle || !letterMessage) {
     showError('Please fill in all fields');
@@ -670,8 +672,8 @@ async function submitLetter(e) {
     // Generate shareable URL
     const shareUrl = `${window.location.origin}?letter=${letterId}`;
 
-    // Show success with URL
-    letterForm.style.display = 'none';
+    // Hide form fields and show success message
+    document.getElementById('formFields').style.display = 'none';
     successMessage.style.display = 'block';
     document.getElementById('generatedUrl').value = shareUrl;
 

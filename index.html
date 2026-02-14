@@ -156,25 +156,26 @@
       </div>
       
       <form id="letterForm" class="letter-form">
-        <div class="form-group">
-          <label for="senderName">Your Name</label>
-          <input type="text" id="senderName" name="senderName" placeholder="Enter your name" required maxlength="50" />
-        </div>
+        <div id="formFields" class="form-fields">
+          <div class="form-group">
+            <label for="formSenderName">Your Name</label>
+            <input type="text" id="formSenderName" name="senderName" placeholder="Enter your name" required maxlength="50" />
+          </div>
 
-        <div class="form-group">
-          <label for="recipientName">Recipient's Name</label>
-          <input type="text" id="recipientName" name="recipientName" placeholder="Who is this for?" required maxlength="50" />
-        </div>
+          <div class="form-group">
+            <label for="formRecipientName">Recipient's Name</label>
+            <input type="text" id="formRecipientName" name="recipientName" placeholder="Who is this for?" required maxlength="50" />
+          </div>
 
-        <div class="form-group">
-          <label for="letterTitle">Letter Title</label>
-          <input type="text" id="letterTitle" name="letterTitle" placeholder="e.g., Happy Hearts Day" required maxlength="100" />
-        </div>
+          <div class="form-group">
+            <label for="formLetterTitle">Letter Title</label>
+            <input type="text" id="formLetterTitle" name="letterTitle" placeholder="e.g., Happy Hearts Day" required maxlength="100" />
+          </div>
 
-        <div class="form-group">
-          <label for="letterMessage">Your Message</label>
-          <textarea 
-            id="letterMessage" 
+          <div class="form-group">
+            <label for="formLetterMessage">Your Message</label>
+            <textarea 
+              id="formLetterMessage" 
             name="letterMessage" 
             placeholder="Write your heartfelt message here..." 
             required 
@@ -187,8 +188,7 @@
         <div class="form-actions">
           <button type="submit" class="submit-btn" id="submitLetterBtn">Create & Get Link</button>
           <button type="button" class="cancel-btn" id="cancelEditorBtn">Cancel</button>
-        </div>
-
+        </div>        </div>
         <div id="successMessage" class="success-message" style="display: none;">
           <p>Letter created! Share this link:</p>
           <div class="share-url-box">
