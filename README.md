@@ -3,7 +3,7 @@
 A beautiful, interactive Valentine's Day card that you can share with anyone. Send heartfelt messages with a personalized digital greeting featuring a romantic envelope animation, thoughtful messages, and easy social sharing.
 
 **Live Application:** https://frekivalentine.edgeone.app
-
+<img width="960" height="474" alt="image" src="https://github.com/user-attachments/assets/0fee2685-aeed-49be-b580-6db352d346f0" />
 ---
 
 ## Quick Start
