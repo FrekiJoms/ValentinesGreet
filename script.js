@@ -166,6 +166,14 @@ function openEnvelope(force = false) {
     return;
   }
 
+  // Track event with Google Analytics
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'envelope_opened', {
+      'event_category': 'engagement',
+      'event_label': 'User opened valentine envelope'
+    });
+  }
+
   envelope.classList.add('open');
   burstParticles();
 
@@ -207,6 +215,14 @@ function closeLetterExperience() {
 }
 
 function openProfileModal() {
+  // Track event with Google Analytics
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'profile_modal_opened', {
+      'event_category': 'engagement',
+      'event_label': 'User viewed creator profile'
+    });
+  }
+
   profileModal.classList.add('show');
   profileModal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('profile-modal-visible');
@@ -412,6 +428,14 @@ async function shareLetter() {
   const url = window.location.href;
   const title = 'FrekiJosh sent you a Valentine\'s Card!';
   const text = 'I opened my heart for you. Tap to see what\'s inside...';
+
+  // Track event with Google Analytics
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'letter_shared', {
+      'event_category': 'engagement',
+      'event_label': 'User shared the valentine card'
+    });
+  }
 
   // Try using Web Share API
   if (navigator.share) {
