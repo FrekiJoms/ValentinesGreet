@@ -501,7 +501,7 @@ async function loadAndDisplayLetter() {
   pickRandomLetter();
 }
 
-// Check if we should automatically open the letter editor
+// Check if I should automatically open the letter editor
 function checkAndOpenLetterEditor() {
   if (sessionStorage.getItem('openLetterEditor') === 'true') {
     sessionStorage.removeItem('openLetterEditor');
@@ -525,7 +525,7 @@ function adjustFloatingHeaderGap() {
   if (!mainHeader || !dateHeader) return;
 
   const rect = mainHeader.getBoundingClientRect();
-  // rect.bottom is viewport pixels from top; for fixed positioning we can use that directly.
+  // rect.bottom is viewport pixels from top; for fixed positioning I can use that directly.
   const desiredTop = Math.round(rect.bottom + 5);
   dateHeader.style.top = `${desiredTop}px`;
 }
