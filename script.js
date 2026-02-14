@@ -487,6 +487,197 @@ if (shareLetterBtn) {
   shareLetterBtn.addEventListener('click', shareLetter);
 }
 
+// -- Letter Editor Modal Functionality ----------------
+
+// TODO: Initialize Supabase with your credentials
+// Get these from your Supabase project dashboard
+const SUPABASE_URL = 'YOUR_SUPABASE_URL'; // e.g., https://xxxxx.supabase.co
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // Your anonymous key
+
+let supabaseClient = null;
+
+// Initialize Supabase if credentials are set
+if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY') {
+  try {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  } catch (err) {
+    console.error('Failed to initialize Supabase:', err);
+  }
+}
+
+const createLetterBtn = document.getElementById('createLetterBtn');
+const letterEditorModal = document.getElementById('letterEditorModal');
+const closeEditorBtn = document.getElementById('closeEditorBtn');
+const cancelEditorBtn = document.getElementById('cancelEditorBtn');
+const letterForm = document.getElementById('letterForm');
+const charCountEl = document.getElementById('charCount');
+const messageInput = document.getElementById('letterMessage');
+const successMessage = document.getElementById('successMessage');
+const errorMessage = document.getElementById('errorMessage');
+
+// Track character count
+if (messageInput) {
+  messageInput.addEventListener('input', (e) => {
+    const count = e.target.value.length;
+    charCountEl.textContent = `${count} / 2000 characters`;
+  });
+}
+
+function openLetterEditor() {
+  if (!supabaseClient) {
+    alert('Letter creation is not available yet. Please contact support.');
+    return;
+  }
+  letterEditorModal.classList.add('show');
+  letterEditorModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('editor-modal-visible');
+}
+
+function closeLetterEditor() {
+  letterEditorModal.classList.remove('show');
+  letterEditorModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('editor-modal-visible');
+  letterForm.reset();
+  successMessage.style.display = 'none';
+  errorMessage.style.display = 'none';
+  charCountEl.textContent = '0 / 2000 characters';
+}
+
+async function submitLetter(e) {
+  e.preventDefault();
+
+  const senderName = document.getElementById('senderName').value.trim();
+  const recipientName = document.getElementById('recipientName').value.trim();
+  const letterTitle = document.getElementById('letterTitle').value.trim();
+  const letterMessage = document.getElementById('letterMessage').value.trim();
+
+  if (!senderName || !recipientName || !letterTitle || !letterMessage) {
+    showError('Please fill in all fields');
+    return;
+  }
+
+  const submitBtn = document.getElementById('submitLetterBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Creating...';
+
+  try {
+    // Generate a unique ID for the letter
+    const letterId = generateUniqueId();
+
+    // Save to Supabase
+    const { data, error } = await supabaseClient
+      .from('user_letters')
+      .insert([
+        {
+          letter_id: letterId,
+          sender_name: senderName,
+          recipient_name: recipientName,
+          title: letterTitle,
+          message: letterMessage,
+          created_at: new Date().toISOString(),
+          view_count: 0
+        }
+      ]);
+
+    if (error) {
+      showError('Failed to create letter: ' + error.message);
+      return;
+    }
+
+    // Generate shareable URL
+    const shareUrl = `${window.location.origin}?letter=${letterId}`;
+
+    // Show success with URL
+    letterForm.style.display = 'none';
+    successMessage.style.display = 'block';
+    document.getElementById('generatedUrl').value = shareUrl;
+
+    // Track event
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'letter_created', {
+        'event_category': 'engagement',
+        'event_label': 'User created custom letter'
+      });
+    }
+
+  } catch (err) {
+    showError('An error occurred: ' + err.message);
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Create & Get Link';
+  }
+}
+
+function generateUniqueId() {
+  return 'letter_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function showError(message) {
+  errorMessage.textContent = message;
+  errorMessage.style.display = 'block';
+  setTimeout(() => {
+    errorMessage.style.display = 'none';
+  }, 5000);
+}
+
+// Event listeners for letter editor
+if (createLetterBtn) {
+  createLetterBtn.addEventListener('click', openLetterEditor);
+}
+
+if (closeEditorBtn) {
+  closeEditorBtn.addEventListener('click', closeLetterEditor);
+}
+
+if (cancelEditorBtn) {
+  cancelEditorBtn.addEventListener('click', closeLetterEditor);
+}
+
+if (letterForm) {
+  letterForm.addEventListener('submit', submitLetter);
+}
+
+// Copy URL button
+const copyUrlBtn = document.getElementById('copyUrlBtn');
+if (copyUrlBtn) {
+  copyUrlBtn.addEventListener('click', async () => {
+    const urlInput = document.getElementById('generatedUrl');
+    try {
+      await navigator.clipboard.writeText(urlInput.value);
+      showShareNotification('Link copied to clipboard!');
+    } catch {
+      urlInput.select();
+      document.execCommand('copy');
+      showShareNotification('Link copied!');
+    }
+  });
+}
+
+// Close editor on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && letterEditorModal.classList.contains('show')) {
+    closeLetterEditor();
+  }
+});
+
+// Close editor on background click
+letterEditorModal.addEventListener('click', (e) => {
+  if (e.target === letterEditorModal) {
+    closeLetterEditor();
+  }
+});
+
+// Add overflow hidden when editor is open
+const originalBodyOverflow = document.body.style.overflow;
+
+function addOverflowHidden() {
+  document.body.style.overflow = 'hidden';
+}
+
+function removeOverflowHidden() {
+  document.body.style.overflow = originalBodyOverflow;
+}
+
 // -- Track social link clicks ----------------
 const socialLinks = document.querySelectorAll('.social-link');
 const feedbackBtn = document.querySelector('.feedback-btn');

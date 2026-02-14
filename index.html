@@ -96,6 +96,10 @@
     </div>
   </main>
 
+  <div class="create-letter-section">
+    <button class="create-letter-btn" id="createLetterBtn" type="button">Create Your Own Letter</button>
+  </div>
+
   <section class="profile-modal" id="profileModal" aria-hidden="true">
     <article class="profile-card" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
       <h2 id="profileTitle">@FrekiJosh Socials:</h2>
@@ -143,6 +147,62 @@
     </article>
   </section>
 
+  <!-- Letter Editor Modal -->
+  <section class="letter-editor-modal" id="letterEditorModal" aria-hidden="true">
+    <article class="letter-editor-sheet" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+      <div class="editor-header">
+        <h2 id="editorTitle">Create Your Love Letter ❤</h2>
+        <button class="close-editor-btn" id="closeEditorBtn" type="button" aria-label="Close editor">✕</button>
+      </div>
+      
+      <form id="letterForm" class="letter-form">
+        <div class="form-group">
+          <label for="senderName">Your Name</label>
+          <input type="text" id="senderName" name="senderName" placeholder="Enter your name" required maxlength="50" />
+        </div>
+
+        <div class="form-group">
+          <label for="recipientName">Recipient's Name</label>
+          <input type="text" id="recipientName" name="recipientName" placeholder="Who is this for?" required maxlength="50" />
+        </div>
+
+        <div class="form-group">
+          <label for="letterTitle">Letter Title</label>
+          <input type="text" id="letterTitle" name="letterTitle" placeholder="e.g., Happy Hearts Day" required maxlength="100" />
+        </div>
+
+        <div class="form-group">
+          <label for="letterMessage">Your Message</label>
+          <textarea 
+            id="letterMessage" 
+            name="letterMessage" 
+            placeholder="Write your heartfelt message here..." 
+            required 
+            maxlength="2000"
+            rows="8"
+          ></textarea>
+          <small id="charCount">0 / 2000 characters</small>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="submit-btn" id="submitLetterBtn">Create & Get Link</button>
+          <button type="button" class="cancel-btn" id="cancelEditorBtn">Cancel</button>
+        </div>
+
+        <div id="successMessage" class="success-message" style="display: none;">
+          <p>Letter created! Share this link:</p>
+          <div class="share-url-box">
+            <input type="text" id="generatedUrl" readonly />
+            <button type="button" class="copy-url-btn" id="copyUrlBtn">Copy</button>
+          </div>
+        </div>
+
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+      </form>
+    </article>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
 </html>

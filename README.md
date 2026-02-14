@@ -13,9 +13,10 @@ A beautiful, interactive Valentine's Day card that you can share with anyone. Se
 - **Hero Section** - Eye-catching "Happy Hearts Day!" headline with animated decorative hearts
 - **Social Sharing** - Easy share button to send the card URL to friends via social media, email, SMS, or copy to clipboard
 - **Creator Profile** - Click to view creator socials (GitHub, Instagram, Discord, Feedback)
+- **Letter Creator** - Users can create their own custom love letters with Supabase backend
 - **Ambient Hearts** - Floating heart particles throughout the page for a romantic atmosphere
 - **Mobile Responsive** - Beautiful on all devices with optimized layouts
-- **Analytics Tracking** - Google Analytics integration to track user engagement
+- **Analytics Tracking** - Google Analytics integration to track user engagement and letter creation
 - **Particle Effects** - Burst of hearts and sparkles when opening the envelope
 - **Smooth Animations** - Polished transitions and micro-interactions throughout
 
@@ -109,6 +110,49 @@ To change the "Happy Hearts Day!" text, edit `index.html` lines 33-37 in the `.h
 - **letter_shared** - How many people shared the card
 - **social_link_clicked** - Which social links got clicks (GitHub, Instagram, Discord)
 - **feedback_clicked** - How many sent you feedback
+- **letter_created** - How many users created custom letters
+
+---
+
+## 📮 Letter Creator Feature
+
+Allow your users to create and share their own custom love letters!
+
+### Setup
+
+1. See [SUPABASE_SETUP.md](SUPABASE_SETUP.md) for detailed setup instructions
+2. Create a free Supabase project at [supabase.com](https://supabase.com)
+3. Set up the database table with provided SQL
+4. Add your Supabase credentials to `script.js`
+
+### How It Works
+
+1. Users click **"Create Your Own Letter"** button below the card
+2. A beautiful modal opens with a form
+3. Users fill in:
+   - Their name (sender)
+   - Recipient's name
+   - Letter title
+   - Custom message (up to 2000 characters)
+4. They click "Create & Get Link"
+5. System generates a unique shareable URL
+6. Users can copy and send to anyone
+
+### Database
+
+All letters are stored in Supabase with:
+- Unique letter ID
+- Sender/recipient names
+- Date created
+- View count tracking
+
+### Customization
+
+Edit the form fields in `index.html` (lines 126-177) to add more options:
+- Additional input fields
+- Color picker
+- Font selection
+- etc.
 
 ---
 
