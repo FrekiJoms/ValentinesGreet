@@ -404,3 +404,61 @@ if (observedHeader && window.ResizeObserver) {
   const ro = new ResizeObserver(adjustFloatingHeaderGap);
   ro.observe(observedHeader);
 }
+
+// -- Share letter functionality ----------------
+const shareLetterBtn = document.getElementById('shareLetterBtn');
+
+async function shareLetter() {
+  const url = window.location.href;
+  const title = 'FrekiJosh sent you a Valentine\'s Card!';
+  const text = 'I opened my heart for you. Tap to see what\'s inside...';
+
+  // Try using Web Share API
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: title,
+        text: text,
+        url: url
+      });
+      return;
+    } catch (err) {
+      // User cancelled or share failed, fall back to copy
+    }
+  }
+
+  // Fallback: copy URL to clipboard
+  try {
+    await navigator.clipboard.writeText(url);
+    showShareNotification('Link copied to clipboard!');
+  } catch (err) {
+    // Last resort: select text for manual copy
+    const tempInput = document.createElement('textarea');
+    tempInput.value = url;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    showShareNotification('Link copied!');
+  }
+}
+
+function showShareNotification(message) {
+  const notification = document.createElement('div');
+  notification.className = 'share-notification';
+  notification.textContent = message;
+  document.body.appendChild(notification);
+
+  // Trigger animation
+  setTimeout(() => notification.classList.add('show'), 10);
+
+  // Remove after 2.5 seconds
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => document.body.removeChild(notification), 300);
+  }, 2500);
+}
+
+if (shareLetterBtn) {
+  shareLetterBtn.addEventListener('click', shareLetter);
+}

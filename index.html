@@ -119,7 +119,12 @@
 
   <section class="letter-overlay" id="letterOverlay" aria-hidden="true">
     <article class="letter-sheet" role="dialog" aria-modal="true" aria-labelledby="letterTitle">
-      <h1 id="letterTitle">Hello!</h1>
+      <div class="letter-header">
+        <h1 id="letterTitle">Hello!</h1>
+        <button class="share-letter-btn" id="shareLetterBtn" type="button" title="Share this card" aria-label="Share letter">
+          <i class="bi bi-share"></i>
+        </button>
+      </div>
       <div id="letterContent">
         <!-- Letter paragraphs will be injected here by script.js -->
       </div>
