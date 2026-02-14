@@ -486,3 +486,32 @@ function showShareNotification(message) {
 if (shareLetterBtn) {
   shareLetterBtn.addEventListener('click', shareLetter);
 }
+
+// -- Track social link clicks ----------------
+const socialLinks = document.querySelectorAll('.social-link');
+const feedbackBtn = document.querySelector('.feedback-btn');
+
+socialLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    const platform = link.querySelector('span:last-child')?.textContent || 'Unknown';
+    
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'social_link_clicked', {
+        'event_category': 'outbound',
+        'event_label': `Clicked: ${platform}`,
+        'link_url': link.href
+      });
+    }
+  });
+});
+
+if (feedbackBtn) {
+  feedbackBtn.addEventListener('click', (e) => {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'feedback_clicked', {
+        'event_category': 'outbound',
+        'event_label': 'User sent feedback email'
+      });
+    }
+  });
+}
