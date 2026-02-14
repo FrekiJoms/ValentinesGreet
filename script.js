@@ -457,6 +457,20 @@ function formatCustomLetterForDisplay(data) {
   };
 }
 
+// Update social sharing meta tags with custom letter sender name
+function updateMetaTagsForCustomLetter(senderName) {
+  const ogTitle = document.getElementById('og-title');
+  const twitterTitle = document.getElementById('twitter-title');
+  const newTitle = `${senderName} sent you a Valentine's Card!`;
+  
+  if (ogTitle) {
+    ogTitle.setAttribute('content', newTitle);
+  }
+  if (twitterTitle) {
+    twitterTitle.setAttribute('content', newTitle);
+  }
+}
+
 // Load and display letter (custom or random)
 async function loadAndDisplayLetter() {
   const letterId = getUrlParameter('letter');
@@ -468,6 +482,8 @@ async function loadAndDisplayLetter() {
       currentCustomLetter = formatCustomLetterForDisplay(customLetterData);
       renderLetter(currentCustomLetter);
       hideReplayButtonIfCustomLetter();
+      // Update social sharing meta tags with sender name
+      updateMetaTagsForCustomLetter(customLetterData.sender_name);
       return;
     }
   }
