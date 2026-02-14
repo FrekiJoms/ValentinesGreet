@@ -754,6 +754,36 @@ body.profile-modal-visible .ambient-hearts {
   transform: translateY(1px);
 }
 
+.sender-info {
+  position: absolute;
+  bottom: max(70px, 13vh);
+  width: 100%;
+  text-align: center;
+  font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+  color: #8f3d5a;
+  font-weight: 500;
+  font-style: italic;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.sender-info p {
+  margin: 0;
+}
+
+.sender-info #senderName {
+  font-weight: 700;
+  color: #e63c70;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .create-letter-section {
   display: flex;
   justify-content: center;

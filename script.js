@@ -457,21 +457,26 @@ function formatCustomLetterForDisplay(data) {
   };
 }
 
-// Update social sharing meta tags with custom letter sender name
-function updateMetaTagsForCustomLetter(senderName) {
-  const ogTitle = document.getElementById('og-title');
-  const twitterTitle = document.getElementById('twitter-title');
-  const newTitle = `${senderName} sent you a Valentine's Card!`;
-  
-  if (ogTitle) {
-    ogTitle.setAttribute('content', newTitle);
-  }
-  if (twitterTitle) {
-    twitterTitle.setAttribute('content', newTitle);
+// Meta tags are now static - no longer need dynamic updates
+// All letters share the same generic message: "I sent you a Valentine's Card!"
+
+// Show sender info for custom letters
+function showSenderInfo(senderName) {
+  const senderInfo = document.getElementById('senderInfo');
+  const senderNameEl = document.getElementById('senderName');
+  if (senderInfo && senderNameEl) {
+    senderNameEl.textContent = senderName;
+    senderInfo.style.display = 'block';
   }
 }
 
-// Load and display letter (custom or random)
+// Hide sender info for default greetings
+function hideSenderInfo() {
+  const senderInfo = document.getElementById('senderInfo');
+  if (senderInfo) {
+    senderInfo.style.display = 'none';
+  }
+}
 async function loadAndDisplayLetter() {
   const letterId = getUrlParameter('letter');
   
@@ -482,13 +487,13 @@ async function loadAndDisplayLetter() {
       currentCustomLetter = formatCustomLetterForDisplay(customLetterData);
       renderLetter(currentCustomLetter);
       hideReplayButtonIfCustomLetter();
-      // Update social sharing meta tags with sender name
-      updateMetaTagsForCustomLetter(customLetterData.sender_name);
+      showSenderInfo(customLetterData.sender_name);
       return;
     }
   }
   
   // Fall back to random greeting
+  hideSenderInfo();
   pickRandomLetter();
 }
 
